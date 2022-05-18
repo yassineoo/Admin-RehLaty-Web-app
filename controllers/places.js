@@ -1,5 +1,5 @@
 import mongoose  from "mongoose";
-import Place from "../models/Place.js";
+import Place from "../models/place.js";
 import fs from 'fs' ;
 import path from 'path';
 console.log(Place);

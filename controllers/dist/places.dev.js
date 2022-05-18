@@ -7,7 +7,7 @@ exports.deleteplace = exports.updateplace = exports.creatplace = exports.getComm
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _Place = _interopRequireDefault(require("../models/Place.js"));
+var _place = _interopRequireDefault(require("../models/place.js"));
 
 var _fs = _interopRequireDefault(require("fs"));
 
@@ -21,7 +21,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-console.log(_Place["default"]);
+console.log(_place["default"]);
 
 var _dirname = _path["default"].resolve();
 
@@ -33,7 +33,7 @@ var getplaces = function getplaces(req, res) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap(_Place["default"].find());
+          return regeneratorRuntime.awrap(_place["default"].find());
 
         case 3:
           Places = _context.sent;
@@ -67,7 +67,7 @@ var getComments = function getComments(req, res) {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(_Place["default"].find());
+          return regeneratorRuntime.awrap(_place["default"].find());
 
         case 3:
           Places = _context2.sent;
@@ -104,7 +104,7 @@ var creatplace = function creatplace(req, res) {
           console.log('place.file.filename ***********************');
           console.log(req.file.filename);
           _context3.prev = 5;
-          newplace = (0, _Place["default"])(_objectSpread({}, place, {
+          newplace = (0, _place["default"])(_objectSpread({}, place, {
             creator: req.adminId,
             createdAt: new Date().toISOString(),
             image: {
@@ -156,7 +156,7 @@ var updateplace = function updateplace(req, res) {
 
         case 4:
           _context4.next = 6;
-          return regeneratorRuntime.awrap(_Place["default"].findByIdAndUpdate(id, req.body, {
+          return regeneratorRuntime.awrap(_place["default"].findByIdAndUpdate(id, req.body, {
             "new": true
           }));
 
@@ -193,7 +193,7 @@ var deleteplace = function deleteplace(req, res) {
 
         case 4:
           _context5.next = 6;
-          return regeneratorRuntime.awrap(_Place["default"].findByIdAndDelete(placeId));
+          return regeneratorRuntime.awrap(_place["default"].findByIdAndDelete(placeId));
 
         case 6:
           place = _context5.sent;
