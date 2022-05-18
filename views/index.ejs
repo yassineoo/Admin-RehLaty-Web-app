@@ -34,11 +34,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.2" rel="stylesheet" />
-  <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-  <link
-    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-    rel="stylesheet"
-/>
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -130,11 +126,7 @@
         </li>
       </ul>
     </div>
-    <div class="sidenav-footer position-absolute w-100 bottom-0 ">
-      <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-      </div>
-    </div>
+    
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -253,8 +245,11 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <div class="container-fluid py-4">
-      <div class="card costmcard" style="width: 18rem;">
+    
+    <div class="container-fluid py-4 home">
+      <button  onclick="showaddcard()" > <a href="#" class="btn btn-primary" >add a card</a></button>
+    
+      <div class="card costmcard" style="width: 18rem;" id="addcard">
       <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
        <div class="lblinp" > <label for="name"> name </label> 
         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
@@ -268,10 +263,10 @@
         <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
         <div class="lblinp" > <label for="positionY"   > positionY</label>
         <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-        <div class="lblinp" >  <label for="selectedFile"  > choose an image</label>
-        <input type="file" name="image" class="FilePond" class="form-control" /></div>
-
-        <button type="submit"> create the card</button>
+        
+        <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
+        <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
+        <button type="submit"> <a href="#" class="btn btn-primary" >create the card</a></button>
       </form>
     </div>
       <div class="container-fluid py-4 cart">
@@ -418,30 +413,7 @@
   <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="./assets/js/plugins/chartjs.min.js"></script>
 
-  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-  <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-  <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-  <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
- <script>
-   document.addEventListener('DOMcontentLoaded',() =>{
-    FilePond.registerPlugin(
-      FilePondPluginImageResize ,
-      FilePondPluginImagePreview ,
-      FilePondPluginImageEncode
-      );
-      FilePond.setOptions({
-        stylePanelAspectRatio : 150/100 ,
-        imageResizelargeWidth : 100 ,
-        imageResizelargeHeight : 150 ,
 
-      })
-     //FilePond.parse(document.body);
-     const inputElement = document.querySelector('input[type="file"]');
-
-// Create a FilePond instance
-//const pond = FilePond.create(inputElement);
-   })
- </script>
  <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -699,7 +671,15 @@
     }
   </script>
   <script>
-    showMap();
+    function showaddcard(){
+      var x = document.getElementById("addcard");
+      if (x.style.display === "none") {
+    x.style.display = "flex";
+  } else {
+    x.style.display = "none";
+  }   
+    };
+    
     function showMap() {
   var x = document.getElementsByClassName("mapClass");
   for (let i = 0; i < x.length; i++) {
@@ -712,6 +692,8 @@
 }
 
 }
+showMap();
+showaddcard();
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

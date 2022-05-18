@@ -117,7 +117,7 @@ var creatplace = function creatplace(req, res) {
           return regeneratorRuntime.awrap(newplace.save());
 
         case 10:
-          res.status(201).json(newplace);
+          res.status(201).redirect('/places');
           _context3.next = 17;
           break;
 

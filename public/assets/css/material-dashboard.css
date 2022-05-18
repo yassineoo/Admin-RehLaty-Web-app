@@ -758,20 +758,63 @@ progress {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
 .costmcard {
+  
   flex:1;
 }
-costmcards {
-  flex:1 0 20%;
+.costmcards {
+  flex:1 0 30%;
   max-width: 30%;
   max-height: 20%;
 }
+
+.inputfile {
+
+	opacity: 1;
+	overflow: hidden;
+	position: absolute;
+
+  
+}
+.filelbl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s ease-out;  
+}
+/*
+.filelbl {
+  font-size: 1.0em;
+
+  display: inline-block;
+  display: block;
+  position: relative;
+
+  border-radius: 4px;
+
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s ease-out;
+}*/
 .lblinp {
   display: flex;
   align-items:  center;
   justify-content: space-between ;
   row-gap: 10%;
   column-gap: 10%;
+  padding-left: 5%;
 }
 .costmcard  label {
   padding: 8px 0;

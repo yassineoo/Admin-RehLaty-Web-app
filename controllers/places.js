@@ -43,7 +43,7 @@ const creatplace = async (req,res)=>{
           console.log(newplace);
           await newplace.save();
             
-            res.status(201).json(newplace)
+            res.status(201).redirect('/places')
 
         } catch (error) {
             console.log(error);
