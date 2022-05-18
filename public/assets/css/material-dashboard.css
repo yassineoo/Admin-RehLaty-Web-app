@@ -773,7 +773,23 @@ progress {
   max-width: 30%;
   max-height: 20%;
 }
+@media screen and (max-width: 1200px){
+  .costmcards {
+    flex:1 0 48%;
+    max-width: 50%;
 
+  }
+}
+@media screen and (max-width: 700px){
+  .costmcards {
+    flex:1 0 100%;
+    max-width: 100%;
+
+  }
+}
+.subadd{
+  margin:auto;
+}
 .inputfile {
 
 	opacity: 1;
