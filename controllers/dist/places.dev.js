@@ -30,29 +30,31 @@ var getplaces = function getplaces(req, res) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
+          console.log('get hi ');
+          _context.next = 4;
           return regeneratorRuntime.awrap(_place["default"].find());
 
-        case 3:
+        case 4:
           Places = _context.sent;
+          console.log('fetch done  ');
           res.status(200).render('index', {
             places: Places
           });
-          _context.next = 11;
+          _context.next = 13;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           res.status(404).json(_context.t0);
 
-        case 11:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 9]]);
 };
 
 exports.getplaces = getplaces;

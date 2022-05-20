@@ -5,9 +5,9 @@ import path from 'path';
 var __dirname = path.resolve();
 const getplaces = async(req,res)=>{
 try {
-     
+     console.log('get hi ');
      const Places =  await Place.find();
-    
+     console.log('fetch done  ');
      res.status(200).render('index',{places:Places});
      
      

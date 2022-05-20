@@ -38,12 +38,12 @@
     #overlay {
       display: none;
       position:absolute;
-      top: 20%;
+      top: 23%;
      
       background: #999;
       width: 100% !important;
      
-     height: 100vh !important;
+     height: 100% !important;
       opacity: 0.8;
       z-index: 100;
     }
@@ -58,8 +58,9 @@
       
       display: none;
       position: absolute;
-      left: auto;
-      background: rgb(0, 0, 0);
+      left: 12%;
+      top: 30%;
+      
       width: 100vw !important; 
       height: 100 !important;
     
@@ -72,7 +73,7 @@
       padding: 10px;
       margin-right: auto;
       position: absolute;
-      top: 10%;
+      top: 0;
       left: auto;
       
       width: 100vw !important; 
@@ -82,7 +83,7 @@
     }
     .popupclose {
       width: 500px;
-     background-color: blue;
+     background-color: transparent;
       font-weight: 900;
       font-size: 48;
       z-index: 500;
@@ -94,8 +95,13 @@
       cursor: pointer;
     }
   
-    .button {
+    .buttonMap{
       cursor: pointer;
+      display: flex;
+      margin: auto;
+      padding: auto;
+      max-width: 150px;
+      max-height: 40px;
     }
     </style>
 </head>
@@ -313,9 +319,9 @@
 
   
   <div class="container-fluid py-4 home">
-    <button  onclick="showaddcard()" > <a href="#" class="btn btn-primary" >add a card</a></button>
+    <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
     
-      <div class="card costmcard" style="width: 18rem;" id="addcard">
+      <div class="card costmcard" style="width: 18rem; display: none ;" id="addCard" >
       <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
        <div class="lblinp" > <label for="name"> name </label> 
         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
@@ -332,13 +338,36 @@
         
         <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
         <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
-        <button type="submit" class= 'btn btn-primary subadd'> <a href="#" class="btn btn-primary" >create the card</a></button>
+        <button type="submit" class= 'btn btn-primary subadd'> create the card </button>
       </form>
     </div>
-    
+    <div id="upCard"   class='upCard card costmcard'  style="display: none ;">
+    <div class="upcontent">
+      <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
+        <div class="lblinp" > <label for="name"> name </label> 
+         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
+         <div class="lblinp" ><label for="type">type</label>
+           <input type="text"  name="type" class="form-control" placeholder="ex : monument ,..."/></div>
+         <div class="lblinp" ><label for="wilaya">wilaya</label>
+         <input type="text"  name="wilaya" class="form-control" placeholder="Oran ,Alger"/></div>
+         <div class="lblinp" > <label for="description" > description </label>
+         <input type="text" name="description"  class="form-control" placeholder="ex : ..."/></div>
+         <div class="lblinp" > <label for="positionX" > positionX</label>
+         <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
+         <div class="lblinp" > <label for="positionY"   > positionY</label>
+         <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+         
+         <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
+         <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
+         <button type="submit" class= 'btn btn-primary subadd'> update the card </button>
+       </form>
+        </div>
+</div>
     <div class="container-fluid py-4 cart">
       
       
+
+
         <% if(places) {%>
           <% places.map( place => { %>
            
@@ -347,24 +376,29 @@
               <img class='placeimg' src="data:image/<%=place.image.contentType%>;base64,
               <%=place.image.data?.toString('base64')%>">
               <div class="card-body">
-                <h5 class="card-title"><%= place.name %></h5>
-                <h5 class="card-title"><%= place.type%></h5>
-                <h5 class="card-title"><%= place.wilaya%></h5>
+                <h6 class="card-title"><%= place.name %></h6>
+                <h6 class="card-title"><%= place.type%> in  <%= place.wilaya%></h6>
                 <p class="card-text"><%= place.description %></p>
+                <div class="lblinp" >
                 <form method="post" action="/places/delete">
                   <input  hidden name="placeId"  value= <%= place._id  %> />
-                  <div class="lblinp" >  <Button type="submit" class="btn btn-primary">Delete</Button>
-                  </div>
+                   <Button type="submit" class="btn btn-primary">Delete</Button>
+                
                   </form>
+
+                  <button    class="showUpdateCard btn btn-primary" name=<%=place._id %>   ><text hidden><%=JSON.stringify({id:place._id, des:place.description,type:place.type,name:place.name,image:null}) %></text>  Update</button> 
+                </div>
                   
                  
       
           
                       
-                      <button   class="button btn btn-primary" name=<%=place._id %>   > show on map</button> 
+                      <button   class="buttonMap btn btn-primary" name=<%=place._id %>   > show on map</button> 
                     </div>
                     
-                    <div id=<%=place._id+"popup" %>  class='popup' >
+                
+            </div>
+           <div id=<%=place._id+"popup" %>  class='popup' >
                       <div class="popupcontrols">
                         <span class="popupclose"  localName=<%=place._id+'close'%>   ><text hidden ><%=place._id+'close'%> </text>X</span>
                     </div>
@@ -374,8 +408,6 @@
               
                         </div>
                 </div>
-            </div>
-
    
            
     <% 
@@ -501,8 +533,9 @@
     // Initialize Variables
     
     var closePopup = document.getElementsByClassName("popupclose");
-    var button = document.getElementsByClassName("button");
+    var button = document.getElementsByClassName("buttonMap");
    var overlay = document.getElementById("overlay");
+   var card =document.getElementById('upCard');
    console.log('hiiii');
     // Close Popup Event
     for (let i = 0; i < button .length; i++) {
@@ -519,25 +552,44 @@
     };
     // Show Overlay and Popup
     button[i].onclick = function(e) {
-    
+      console.log('finisech');
+      console.log(overlay);
+      console.log(e);
     var popup = document.getElementById(e.target.name+"popup");
-
+    console.log(popup);
       overlay.style.display = 'block';
       popup.style.display = 'block';
       console.log('finisech');
-    
-
     }
   }
-  popup = document.getElementsByClassName(' popup')
 
+  const popup = document.getElementsByClassName(' popup')
+// update
+const btnup =document.getElementsByClassName('showUpdateCard') ;
+console.log(btnup);
+for (let i = 0; i < button .length; i++) {
+btnup[i].onclick= (e) => {
+  console.log('hohohohohohoh');
+ 
+  const x = JSON.parse(e.target.firstChild.innerHTML);
+  console.log(x);
+  console.log(card);
+  console.log(card.childNodes[1]);
+  console.log(card.childNodes[1].childNodes[1]);
+  console.log(card.childNodes[1].childNodes[1].childNodes[1].childNodes);
 
+  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].value=x.name;
+  card.style.display='flex' ;
+  overlay.style.display = 'block'
+}
+}
   const hide = () => {
-    overlay.style.display = 'none'
+    overlay.style.display = 'none';
+    card.style.display = 'none';
     for (let i = 0; i < popup .length; i++) {
       popup[i].style.display ='none';
      
-  }
+  }}
   </script>
  <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -797,7 +849,9 @@
   </script>
   <script>
     function showaddcard(){
-      var x = document.getElementById("addcard");
+      console.log('add card');
+      var x = document.getElementById("addCard");
+      console.log(x.style.display);
       if (x.style.display === "none") {
     x.style.display = "flex";
   } else {
@@ -805,25 +859,28 @@
   }   
     };
     
- /*   function showMap() {
+ /*  
+  function showMap() {
   var x = document.getElementsByClassName("mapClass");
   for (let i = 0; i < x.length; i++) {
 
     if (x[i].style.display === "none") {
     x[i].style.display = "flex";
-  } else {
+  }
+   else {
     x[i].style.display = "none";
   }
 }
 
 }
-showMap();*/
-showaddcard();
+
+showMap();
+*/
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/material-dashboard.min.js?v=3.0.2"></script>
+
+  <script src="./assets/js/material-dashboard.min.js?v=3.0.2" > </script>
 
 </body>
 

@@ -765,8 +765,9 @@ progress {
   flex-direction: column;
 }
 .costmcard {
-  
+  display: none ;
   flex:1;
+  z-index: 400;
 }
 .placeimg {
   display: flex;
@@ -781,16 +782,17 @@ progress {
   margin: 10px;
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1000px){
   .costmcards {
-    flex:1 0 48%;
+    flex:0.5 !important;
     max-width: 50%;
+    background-color: #000;
 
   }
 }
 @media screen and (max-width: 700px){
   .costmcards {
-    flex:1 0 100%;
+    flex:1 !important;
     max-width: 100%;
 
   }
@@ -803,7 +805,7 @@ progress {
 	opacity: 1;
 	overflow: hidden;
 	position: absolute;
-
+ border-radius: 3px; 
   
 }
 .filelbl {
