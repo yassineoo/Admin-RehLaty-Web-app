@@ -322,7 +322,7 @@
     <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
     
       <div class="card costmcard" style="width: 18rem; display: none ;" id="addCard" >
-      <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
+      <form action="/places/update" method="post" enctype="multipart/form-data"  class="form-group">
        <div class="lblinp" > <label for="name"> name </label> 
         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
         <div class="lblinp" ><label for="type">type</label>
@@ -338,7 +338,7 @@
         
         <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
         <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
-        <button type="submit" class= 'btn btn-primary subadd'> create the card </button>
+        <button type="submit" class= 'btn btn-primary subadd majCard' > create the card </button>
       </form>
     </div>
     <div id="upCard"   class='upCard card costmcard'  style="display: none ;">
@@ -359,7 +359,7 @@
          
          <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
          <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
-         <button type="submit" class= 'btn btn-primary subadd'> update the card </button>
+         <button type="submit" class= 'btn btn-primary subadd majCard'> update the card </button>
        </form>
         </div>
 </div>
