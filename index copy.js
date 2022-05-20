@@ -16,23 +16,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.set('view engine', 'ejs');
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'uploads')
-  },
-  filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now())
-  }
-});
-
-var upload = multer({ storage: storage });
 app.get( '/' , (req,res) => {
   
   res.render('index',{places:undefined});
-})
-app.post( '/' , (req,res) => {
-  
-  console.log('helllovvvvvv');;
 })
 
 /*app.post('/places', upload.single('image'), async (req, res, next) => {       

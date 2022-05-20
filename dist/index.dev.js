@@ -42,7 +42,7 @@ app.post('/', function (req, res) {
 app.use('/places', _places["default"]);
 app.use('/admin', _admin["default"]);
 var URL = process.env.URL || 'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority';
-var PORT = process.env.PORT || 7050;
+var PORT = process.env.PORT || 8800;
 
 _mongoose["default"].connect(URL, {
   useNewUrlParser: true,

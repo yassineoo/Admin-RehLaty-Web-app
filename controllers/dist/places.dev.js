@@ -21,8 +21,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-console.log(_place["default"]);
-
 var _dirname = _path["default"].resolve();
 
 var getplaces = function getplaces(req, res) {
@@ -97,13 +95,11 @@ var creatplace = function creatplace(req, res) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          console.log('place.file.filename ***********************');
-          console.log(req.file);
+          //console.log(req.file);   
           place = req.body; //   console.log(place.file.filename);
+          //  console.log(req.file.filename);  
 
-          console.log('place.file.filename ***********************');
-          console.log(req.file.filename);
-          _context3.prev = 5;
+          _context3.prev = 1;
           newplace = (0, _place["default"])(_objectSpread({}, place, {
             creator: req.adminId,
             createdAt: new Date().toISOString(),
@@ -111,28 +107,28 @@ var creatplace = function creatplace(req, res) {
               data: _fs["default"].readFileSync(_path["default"].join(_dirname + '/uploads/' + req.file.filename)),
               contentType: 'image/png'
             }
-          }));
-          console.log(newplace);
-          _context3.next = 10;
+          })); //    console.log(newplace);
+
+          _context3.next = 5;
           return regeneratorRuntime.awrap(newplace.save());
 
-        case 10:
+        case 5:
           res.status(201).redirect('/places');
-          _context3.next = 17;
+          _context3.next = 12;
           break;
 
-        case 13:
-          _context3.prev = 13;
-          _context3.t0 = _context3["catch"](5);
+        case 8:
+          _context3.prev = 8;
+          _context3.t0 = _context3["catch"](1);
           console.log(_context3.t0);
           res.status(409).json(_context3.t0);
 
-        case 17:
+        case 12:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[5, 13]]);
+  }, null, null, [[1, 8]]);
 };
 
 exports.creatplace = creatplace;

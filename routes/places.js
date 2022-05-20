@@ -18,8 +18,7 @@ var storage = multer.diskStorage({
   var upload = multer({ storage: storage });
 
 
-  route.get("/", getplaces);
-route.get("/", getComments);
+route.get("/", getplaces);
 route.post("/",upload.single('image'), creatplace);
 route.post("/update",updateplace );
 route.post('/delete',deleteplace);

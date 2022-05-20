@@ -34,7 +34,70 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.2" rel="stylesheet" />
+  <style>
+    #overlay {
+      display: none;
+      position:absolute;
+      top: 20%;
+     
+      background: #999;
+      width: 100% !important;
+     
+     height: 100vh !important;
+      opacity: 0.8;
+      z-index: 100;
+    }
+  .mapclass {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  
+  
+  }
+    .popup {
+      
+      display: none;
+      position: absolute;
+      left: auto;
+      background: rgb(0, 0, 0);
+      width: 100vw !important; 
+      height: 100 !important;
+    
+      z-index: 200 !important;
+    }
+  
 
+  
+    .popupcontent {
+      padding: 10px;
+      margin-right: auto;
+      position: absolute;
+      top: 10%;
+      left: auto;
+      
+      width: 100vw !important; 
+      height: 100% !important;
+    
+      z-index: 200 !important;
+    }
+    .popupclose {
+      width: 500px;
+     background-color: blue;
+      font-weight: 900;
+      font-size: 48;
+      z-index: 500;
+      display: flex;
+      position: relative;
+      top: auto;
+      right:30%;
+      padding: 10px;
+      cursor: pointer;
+    }
+  
+    .button {
+      cursor: pointer;
+    }
+    </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -245,9 +308,12 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    
-    <div class="container-fluid py-4 home">
-      <button  onclick="showaddcard()" > <a href="#" class="btn btn-primary" >add a card</a></button>
+    <div  id='overlay'  onclick="hide()"></div>
+     
+
+  
+  <div class="container-fluid py-4 home">
+    <button  onclick="showaddcard()" > <a href="#" class="btn btn-primary" >add a card</a></button>
     
       <div class="card costmcard" style="width: 18rem;" id="addcard">
       <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
@@ -269,31 +335,49 @@
         <button type="submit" class= 'btn btn-primary subadd'> <a href="#" class="btn btn-primary" >create the card</a></button>
       </form>
     </div>
-      <div class="container-fluid py-4 cart">
     
- 
+    <div class="container-fluid py-4 cart">
+      
+      
         <% if(places) {%>
           <% places.map( place => { %>
-            <% console.log(place) %>
+           
            
             <div class="card costmcards" style="width: 18rem;">
-              <img src="data:image/<%=place.image.contentType%>;base64,
+              <img class='placeimg' src="data:image/<%=place.image.contentType%>;base64,
               <%=place.image.data?.toString('base64')%>">
               <div class="card-body">
-                <h5 class="card-title"><%= place.name || 'hiii'%></h5>
+                <h5 class="card-title"><%= place.name %></h5>
                 <h5 class="card-title"><%= place.type%></h5>
                 <h5 class="card-title"><%= place.wilaya%></h5>
                 <p class="card-text"><%= place.description %></p>
                 <form method="post" action="/places/delete">
                   <input  hidden name="placeId"  value= <%= place._id  %> />
-                  <Button type="submit"><a href="#" class="btn btn-primary" >DELETE</a></Button>
-                </form>
-
-                 <button onclick="showMap()"> <a href="#" class="btn btn-primary" >show on map</a></button> 
-              </div>
-              <div class="mapouter mapClass"><div class="gmap_canvas"><iframe width="237" height="309" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${place.positionX},${place.positionY}&t=&z=9&ie=UTF8&iwloc=&output=embed` %>  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2piratebay.org">pirate bay</a><br><style>.mapouter{position:relative;text-align:right;height:309px;width:237px;}</style><a href="https://www.embedgooglemap.net">embedgooglemap.net</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:309px;width:237px;}</style></div></div>
-           
+                  <div class="lblinp" >  <Button type="submit" class="btn btn-primary">Delete</Button>
+                  </div>
+                  </form>
+                  
+                 
+      
+          
+                      
+                      <button   class="button btn btn-primary" name=<%=place._id %>   > show on map</button> 
+                    </div>
+                    
+                    <div id=<%=place._id+"popup" %>  class='popup' >
+                      <div class="popupcontrols">
+                        <span class="popupclose"  localName=<%=place._id+'close'%>   ><text hidden ><%=place._id+'close'%> </text>X</span>
+                    </div>
+                    <div class="popupcontent">
+                      <div class="mapouter mapClass"><div class="gmap_canvas"><iframe width="808" height="507" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${place.positionX},${place.positionY}&t=&z=9&ie=UTF8&iwloc=&output=embed` %>   frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com/divi-discount/">divi discount</a><br><style>.mapouter{position:relative;text-align:right;height:507px;width:808px;}</style><a href="https://www.embedgooglemap.net">get google maps embed code</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:507px;width:808px;}</style></div></div>
+                    
+              
+                        </div>
+                </div>
             </div>
+
+   
+           
     <% 
           }
            )
@@ -306,9 +390,9 @@
               <div class="copyright text-center text-sm text-muted text-lg-start">
                 © <script>
                   document.write(new Date().getFullYear())
-                </script>,
+                </script>
                 made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">TechGravity</a>
                 for a better web.
               </div>
             </div>
@@ -413,7 +497,48 @@
   <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="./assets/js/plugins/chartjs.min.js"></script>
 
+  <script type="text/javascript">
+    // Initialize Variables
+    
+    var closePopup = document.getElementsByClassName("popupclose");
+    var button = document.getElementsByClassName("button");
+   var overlay = document.getElementById("overlay");
+   console.log('hiiii');
+    // Close Popup Event
+    for (let i = 0; i < button .length; i++) {
 
+    closePopup[i].onclick = function(e) {
+
+    let s=e.target.firstChild.innerHTML.replace('close','').trim();
+
+    var popup = document.getElementById(s+"popup");
+    console.log(overlay);
+    console.log(popup);
+      overlay.style.display = 'none';
+      popup.style.display = 'none';
+    };
+    // Show Overlay and Popup
+    button[i].onclick = function(e) {
+    
+    var popup = document.getElementById(e.target.name+"popup");
+
+      overlay.style.display = 'block';
+      popup.style.display = 'block';
+      console.log('finisech');
+    
+
+    }
+  }
+  popup = document.getElementsByClassName(' popup')
+
+
+  const hide = () => {
+    overlay.style.display = 'none'
+    for (let i = 0; i < popup .length; i++) {
+      popup[i].style.display ='none';
+     
+  }
+  </script>
  <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -680,7 +805,7 @@
   }   
     };
     
-    function showMap() {
+ /*   function showMap() {
   var x = document.getElementsByClassName("mapClass");
   for (let i = 0; i < x.length; i++) {
 
@@ -692,7 +817,7 @@
 }
 
 }
-showMap();
+showMap();*/
 showaddcard();
   </script>
   <!-- Github buttons -->

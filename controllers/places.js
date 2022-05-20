@@ -2,12 +2,14 @@ import mongoose  from "mongoose";
 import Place from "../models/place.js";
 import fs from 'fs' ;
 import path from 'path';
-console.log(Place);
 var __dirname = path.resolve();
 const getplaces = async(req,res)=>{
 try {
+     
      const Places =  await Place.find();
+    
      res.status(200).render('index',{places:Places});
+     
      
 } catch (error) {
     console.log(error)
@@ -29,18 +31,17 @@ const getComments = async(req,res)=>{
 
 
 const creatplace = async (req,res)=>{
-    console.log('place.file.filename ***********************');
-    console.log(req.file);   
+
+    //console.log(req.file);   
     const place = req.body;
  //   console.log(place.file.filename);
-    console.log('place.file.filename ***********************');
-    console.log(req.file.filename);  
+  //  console.log(req.file.filename);  
           try {
          const newplace = Place({...place , creator:req.adminId , createdAt : new Date().toISOString() ,  image: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
             contentType: 'image/png'
         }});
-          console.log(newplace);
+      //    console.log(newplace);
           await newplace.save();
             
             res.status(201).redirect('/places')

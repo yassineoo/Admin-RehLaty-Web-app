@@ -30,7 +30,6 @@ var upload = (0, _multer["default"])({
   storage: storage
 });
 route.get("/", _places.getplaces);
-route.get("/", _places.getComments);
 route.post("/", upload.single('image'), _places.creatplace);
 route.post("/update", _places.updateplace);
 route.post('/delete', _places.deleteplace); //route.patch('/like/:id',auth,likeplace);
