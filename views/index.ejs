@@ -103,6 +103,15 @@
       max-width: 150px;
       max-height: 40px;
     }
+    #inputFileLbl{
+        display: none;
+      }
+      #labelTag{
+        cursor:pointer;
+      }
+      #imageName{
+        color:green;
+      }
     </style>
 </head>
 
@@ -322,7 +331,7 @@
     <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
     
       <div class="card costmcard" style="width: 18rem; display: none ;" id="addCard" >
-      <form action="/places/update" method="post" enctype="multipart/form-data"  class="form-group">
+      <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
        <div class="lblinp" > <label for="name"> name </label> 
         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
         <div class="lblinp" ><label for="type">type</label>
@@ -343,7 +352,7 @@
     </div>
     <div id="upCard"   class='upCard card costmcard'  style="display: none ;">
     <div class="upcontent">
-      <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
+      <form action="/places/update" method="post" enctype="multipart/form-data"  class="form-group">
         <div class="lblinp" > <label for="name"> name </label> 
          <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
          <div class="lblinp" ><label for="type">type</label>
@@ -356,9 +365,19 @@
          <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
          <div class="lblinp" > <label for="positionY"   > positionY</label>
          <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-         
+         <div class="lblinp" > <label for="positionY"   > tranport</label>
+          <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+          <div class="lblinp" > <label for="positionY"   > acces Time</label>
+            <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+            
          <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
-         <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
+          <label id="inputFileLbl" for="inputTag">
+            Select Image <br/>
+            <i class="fa fa-2x fa-camera"></i>
+            <input id="inputTag" type="file"/>
+            <br/>
+            <span id="imageName"></span>
+          </label>
          <button type="submit" class= 'btn btn-primary subadd majCard'> update the card </button>
        </form>
         </div>
@@ -379,6 +398,8 @@
                 <h6 class="card-title"><%= place.name %></h6>
                 <h6 class="card-title"><%= place.type%> in  <%= place.wilaya%></h6>
                 <p class="card-text"><%= place.description %></p>
+                <p class="card-text"><%= place.trnsport%> <%= place.timeacces%></p>
+            
                 <div class="lblinp" >
                 <form method="post" action="/places/delete">
                   <input  hidden name="placeId"  value= <%= place._id  %> />
@@ -591,6 +612,16 @@ btnup[i].onclick= (e) => {
      
   }}
   </script>
+  <script>
+        let input = document.getElementById("inputTag");
+        let imageName = document.getElementById("imageName")
+
+        input.addEventListener("change", ()=>{
+            let inputImage = document.querySelector("input[type=file]").files[0];
+
+            imageName.innerText = inputImage.name;
+        })
+    </script>
  <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
