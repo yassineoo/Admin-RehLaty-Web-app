@@ -31,7 +31,7 @@ app.use('/admin', adminRoutes);
  
 
 const URL = process.env.URL ||'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority'
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8880;
  
 mongoose.connect(URL,{ useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, console.log("server is running sucsessfully" , PORT)))

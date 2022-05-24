@@ -854,8 +854,10 @@ form {
 .lblinp {
   display: flex;
   align-items:  center;
+  color: #454545;
+  font-weight: 600;
   justify-content: space-between ;
-  row-gap: 10%;
+  row-gap: 15%;
   column-gap: 10%;
   padding-left: 5%;
 }
