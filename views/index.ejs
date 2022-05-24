@@ -35,11 +35,14 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.2" rel="stylesheet" />
   <style>
+    .logoim{
+      width: 600px !important;
+     height: 347px !important;
+    }
     #overlay {
       display: none;
       position:absolute;
-      top: 23%;
-     
+      top: 0;
       background: #999;
       width: 100% !important;
      
@@ -66,20 +69,21 @@
     
       z-index: 200 !important;
     }
-  
+  .cardGrp{
+    row-gap: 20%;
+    flex-wrap: wrap;
+   
+    column-gap: 5%;
+  }
 
   
     .popupcontent {
       padding: 10px;
       margin-right: auto;
-      position: absolute;
+      width: 100%;
+      height: 100%;
+
       top: 0;
-      left: auto;
-      
-      width: 100vw !important; 
-      height: 100% !important;
-    
-      z-index: 200 !important;
     }
     .popupclose {
       width: 500px;
@@ -94,6 +98,15 @@
       padding: 10px;
       cursor: pointer;
     }
+    .popupCard{
+      position:absolute;
+      top: 15%;
+      left: auto;
+      right: auto;
+      width: 60vw !important; 
+      height: 70% !important;
+      z-index: 300 !important;
+    }
   
     .buttonMap{
       cursor: pointer;
@@ -103,6 +116,41 @@
       max-width: 150px;
       max-height: 40px;
     }
+    .dashbg{
+      background-color: #ff8c20 !important;
+
+    }
+    .placeimg{
+      background-size: cover;
+    }
+    .mapIcon{
+
+    margin: 10px;
+    position: absolute;
+    display: flex;
+    bottom: 0px;
+    /* top: 0; */
+    right: 0;
+}
+.updateIcon{
+
+margin: 10px;
+position: absolute;
+display: flex;
+top: 0px;
+/* top: 0; */
+left: 0px;
+}
+.deleteIcon{
+
+margin: 10px;
+position: absolute;
+display: flex;
+top: 0px;
+/* top: 0; */
+right: 0px;
+}
+
     #inputFileLbl{
         display: none;
       }
@@ -114,25 +162,26 @@
       }
     </style>
 </head>
-
-<body class="g-sidenav-show  bg-gray-200">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+<div  id='overlay'  onclick="hide()"></div>
+<body class="g-sidenav-show  bg-gray-200" style="height:100vh;">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main" style="background: linear-gradient(186.22deg, #1A248A 0.92%, #1E5AFF 98.95%);
+  border-radius: 25px !important">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="./assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+        <img src="./assets/img/LOGO.png" class="logoim" alt="main_logo">
+        
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
+          <a class="nav-link text-white dashbg" href="./pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1" >Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
@@ -323,12 +372,12 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <div  id='overlay'  onclick="hide()"></div>
+
      
 
   
   <div class="container-fluid py-4 home">
-    <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
+      <!--  <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
     
       <div class="card costmcard" style="width: 18rem; display: none ;" id="addCard" >
       <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
@@ -371,26 +420,54 @@
             <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
             
          <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
-          <label id="inputFileLbl" for="inputTag">
-            Select Image <br/>
-            <i class="fa fa-2x fa-camera"></i>
-            <input id="inputTag" type="file"/>
-            <br/>
-            <span id="imageName"></span>
-          </label>
+    
          <button type="submit" class= 'btn btn-primary subadd majCard'> update the card </button>
        </form>
         </div>
+        <h1>heloooo</h1>
 </div>
-    <div class="container-fluid py-4 cart">
-      
-      
 
+  </div>
+-->   
 
+    <div class="card-group cardGrp">
         <% if(places) {%>
           <% places.map( place => { %>
+            <div class="card costmcards" style="width: 18rem;">
+              <img class='card-img-top placeimg' src="data:image/<%=place.image.contentType%>;base64,
+              <%=place.image.data?.toString('base64')%>">
+              <div class="card-img-overlay">
+                <svg id=<%=place._id %> class ='mapIcon' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-pin-map" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
+                  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+                </svg>
+                <svg class="showUpdateCard"  class ='updateIcon' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                 <text hidden ><%=JSON.stringify({id:place._id,des:place.description,type:place.type,name:place.name,image:null}) %></text> <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                </svg>
+                <form method="post" action="/places/delete">
+                  <input  hidden name="placeId"  value= <%= place._id  %> />
+                  <Button type="submit" > <svg  class ='deleteIcon' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </Button>
+                
+                  </form>
+              </div>
+            </div>
+            <div class='popup' id=<%=place._id+"popup" %>    >
+              <div class="popupcontrols">
+                <span class="popupclose"  localName=<%=place._id+'close'%>   ><text hidden ><%=place._id+'close'%> </text>X</span>
+            </div>
+            <div class="popupcontent">
+              <div class="mapouter mapClass"><div class="gmap_canvas"><iframe width="808" height="607" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${place.positionX},${place.positionY}&t=&z=9&ie=UTF8&iwloc=&output=embed` %>   frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com/divi-discount/">divi discount</a><br><style>.mapouter{position:relative;text-align:right;height:607px;width:808px;}</style><a href="https://www.embedgooglemap.net">get google maps embed code</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:507px;width:808px;}</style></div></div>
+                </div>
+        </div>
+ 
            
-           
+      <!--
             <div class="card costmcards" style="width: 18rem;">
               <img class='placeimg' src="data:image/<%=place.image.contentType%>;base64,
               <%=place.image.data?.toString('base64')%>">
@@ -401,41 +478,88 @@
                 <p class="card-text"><%= place.trnsport%> <%= place.timeacces%></p>
             
                 <div class="lblinp" >
-                <form method="post" action="/places/delete">
-                  <input  hidden name="placeId"  value= <%= place._id  %> />
-                   <Button type="submit" class="btn btn-primary">Delete</Button>
-                
-                  </form>
+           
 
                   <button    class="showUpdateCard btn btn-primary" name=<%=place._id %>   ><text hidden><%=JSON.stringify({id:place._id, des:place.description,type:place.type,name:place.name,image:null}) %></text>  Update</button> 
                 </div>
-                  
-                 
-      
-          
                       
                       <button   class="buttonMap btn btn-primary" name=<%=place._id %>   > show on map</button> 
                     </div>
                     
                 
             </div>
-           <div id=<%=place._id+"popup" %>  class='popup' >
-                      <div class="popupcontrols">
-                        <span class="popupclose"  localName=<%=place._id+'close'%>   ><text hidden ><%=place._id+'close'%> </text>X</span>
-                    </div>
-                    <div class="popupcontent">
-                      <div class="mapouter mapClass"><div class="gmap_canvas"><iframe width="808" height="507" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${place.positionX},${place.positionY}&t=&z=9&ie=UTF8&iwloc=&output=embed` %>   frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com/divi-discount/">divi discount</a><br><style>.mapouter{position:relative;text-align:right;height:507px;width:808px;}</style><a href="https://www.embedgooglemap.net">get google maps embed code</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:507px;width:808px;}</style></div></div>
-                    
-              
-                        </div>
-                </div>
-   
+
+              --> 
            
     <% 
           }
            )
           } %>  
 </div>
+        <div class='popupCard' id='popupCard' style="display: none ;" >    
+        <div class="popupcontent">
+          <div id="upCard"   class='upCard card costmcard'  >
+            <div class="upcontent">
+              <form action="/places/update" method="post" enctype="multipart/form-data"  class="form-group">
+                <div class="lblinp" > <label for="name"> name </label> 
+                <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
+                <div class="lblinp" ><label for="type">type</label>
+                  <input type="text"  name="type" class="form-control" placeholder="ex : monument ,..."/></div>
+                <div class="lblinp" ><label for="wilaya">wilaya</label>
+                <input type="text"  name="wilaya" class="form-control" placeholder="Oran ,Alger"/></div>
+                <div class="lblinp" > <label for="description" > description </label>
+                <input type="text" name="description"  class="form-control" placeholder="ex : ..."/></div>
+                <div class="lblinp" > <label for="positionX" > positionX</label>
+                <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
+                <div class="lblinp" > <label for="positionY"   > positionY</label>
+                <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+                <div class="lblinp" > <label for="positionY"   > tranport</label>
+                  <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+                  <div class="lblinp" > <label for="positionY"   > acces Time</label>
+                    <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+                    <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
+                    </div>
+            
+                <button type="submit" class= 'btn btn-primary subadd majCard'> update the card </button>
+              </form>
+                </div>
+        </div>
+
+          </div>
+        </div>
+        <div class='popupCard' id='addCard' style="display: none ;" >    
+          <div class="popupcontent">
+            <div id="addCard"   class='upCard card costmcard'  >
+              <div class="upcontent">
+                <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
+                  <div class="lblinp" > <label for="name"> name </label> 
+                  <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
+                  <div class="lblinp" ><label for="type">type</label>
+                    <input type="text"  name="type" class="form-control" placeholder="ex : monument ,..."/></div>
+                  <div class="lblinp" ><label for="wilaya">wilaya</label>
+                  <input type="text"  name="wilaya" class="form-control" placeholder="Oran ,Alger"/></div>
+                  <div class="lblinp" > <label for="description" > description </label>
+                  <input type="text" name="description"  class="form-control" placeholder="ex : ..."/></div>
+                  <div class="lblinp" > <label for="positionX" > positionX</label>
+                  <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
+                  <div class="lblinp" > <label for="positionY"   > positionY</label>
+                  <input type="number"  name="positionY"   step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
+                  <div class="lblinp" > <label for="tranport"   > tranport</label>
+                    <input type="text" name="tranport"   class="form-control" placeholder="y corodone"/></div>
+                    <div class="lblinp" > <label for="accesTime"   > acces Time</label>
+                      <input type="text" name="accesTime"   class="form-control" placeholder="y corodone"/></div>
+                      <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
+                      </div>
+              
+                  <button type="submit" class= 'btn btn-primary subadd majCard'> Add the card </button>
+                </form>
+                  </div>
+          </div>
+  
+            </div>
+          </div>
+
+
       <footer class="footer py-4  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -468,12 +592,14 @@
           </div>
         </div>
       </footer>
-    </div>
+    
   </main>
   <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class="material-icons py-2">settings</i>
-    </a>
+    <button class="fixed-plugin-button text-dark position-fixed" >
+      <svg onclick="showaddcard()" xmlns="http://www.w3.org/2000/svg" width="61" height="61" fill="#1A248A" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg>
+    </button>
     <div class="card shadow-lg">
       <div class="card-header pb-0 pt-3">
         <div class="float-start">
@@ -554,10 +680,10 @@
     // Initialize Variables
     
     var closePopup = document.getElementsByClassName("popupclose");
-    var button = document.getElementsByClassName("buttonMap");
+    var button = document.getElementsByClassName("mapIcon");
    var overlay = document.getElementById("overlay");
    var card =document.getElementById('upCard');
-   console.log('hiiii');
+   console.log('hiiii',button);
     // Close Popup Event
     for (let i = 0; i < button .length; i++) {
 
@@ -576,51 +702,81 @@
       console.log('finisech');
       console.log(overlay);
       console.log(e);
-    var popup = document.getElementById(e.target.name+"popup");
+    var popup = document.getElementById(e.target.id+"popup");
     console.log(popup);
-      overlay.style.display = 'block';
+      overlay.style.display = 'flex';
       popup.style.display = 'block';
       console.log('finisech');
     }
+    console.log( button[i].onclick);
   }
-
+  const btnup =document.getElementsByClassName('showUpdateCard') ;
+const popUp = document.getElementById('popupCard');  
+const popAdd = document.getElementById('addCard');  
   const popup = document.getElementsByClassName(' popup')
-// update
-const btnup =document.getElementsByClassName('showUpdateCard') ;
-console.log(btnup);
-for (let i = 0; i < button .length; i++) {
-btnup[i].onclick= (e) => {
-  console.log('hohohohohohoh');
- 
-  const x = JSON.parse(e.target.firstChild.innerHTML);
-  console.log(x);
-  console.log(card);
-  console.log(card.childNodes[1]);
-  console.log(card.childNodes[1].childNodes[1]);
-  console.log(card.childNodes[1].childNodes[1].childNodes[1].childNodes);
-
-  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].value=x.name;
-  card.style.display='flex' ;
-  overlay.style.display = 'block'
-}
-}
+  console.log('poooooooooop,',popup);
+  //overly hiding effect
   const hide = () => {
     overlay.style.display = 'none';
-    card.style.display = 'none';
+    popUp.style.display='none' ;
+    popAdd.style.display='none' ;
+   // card.style.display = 'none';
     for (let i = 0; i < popup .length; i++) {
+      console.log('hello');
+      console.log(popup[i]);
+
       popup[i].style.display ='none';
      
   }}
+
+
+  // update
+
+
+for (let i = 0; i < button .length; i++) {
+btnup[i].onclick= (e) => {
+  console.log('hohohohohohoh');
+
+  console.log(e);
+  const x = JSON.parse(e.target.childNodes[1].innerHTML);
+  console.log(x);
+
+  console.log('card.childNodes[1].childNodes[1]');
+  console.log(  card.childNodes[1].childNodes[1].childNodes[1].childNodes);
+  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].attributes[1].nodeValue=x.name;
+  console.log('card.childNodes[1].childNodes[1]');
+  //card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].attributes[1].nodeValue=x.des;
+  console.log(card.childNodes[1].childNodes[1]);
+  popUp.style.display='flex' ;
+  overlay.style.display = 'flex';
+  console.log(popUp);
+
+
+}
+}
+function showaddcard(){
+      console.log('add card');
+      var x = document.getElementById("addCard");
+      console.log(x.style.display);
+      if (x.style.display === "none") {
+    x.style.display = "flex";
+    overlay.style.display = 'flex';
+  } else {
+    x.style.display = "none";
+
+  }   
+    };
+    
   </script>
-  <script>
-        let input = document.getElementById("inputTag");
+ <script>
+     /*   let input = document.getElementById("inputTag");
         let imageName = document.getElementById("imageName")
 
         input.addEventListener("change", ()=>{
             let inputImage = document.querySelector("input[type=file]").files[0];
 
             imageName.innerText = inputImage.name;
-        })
+        })*/
     </script>
  <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -879,17 +1035,7 @@ btnup[i].onclick= (e) => {
     }
   </script>
   <script>
-    function showaddcard(){
-      console.log('add card');
-      var x = document.getElementById("addCard");
-      console.log(x.style.display);
-      if (x.style.display === "none") {
-    x.style.display = "flex";
-  } else {
-    x.style.display = "none";
-  }   
-    };
-    
+
  /*  
   function showMap() {
   var x = document.getElementsByClassName("mapClass");

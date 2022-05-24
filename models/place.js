@@ -6,8 +6,9 @@ const placeSchema = mongoose.Schema({
     name : String ,
     positionX:Number,
     positionY:Number,
+    transport:String,
     wilaya:String ,
-    creater :String , 
+    creater :String, 
     image :
     {
         data: Buffer,

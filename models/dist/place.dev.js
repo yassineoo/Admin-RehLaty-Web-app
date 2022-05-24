@@ -15,6 +15,7 @@ var placeSchema = _mongoose["default"].Schema({
   name: String,
   positionX: Number,
   positionY: Number,
+  transport: String,
   wilaya: String,
   creater: String,
   image: {
