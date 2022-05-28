@@ -781,15 +781,25 @@ progress {
   
 }
 .costmcards {
-  background-color: transparent !important;
+ 
   flex:1 0 26% !important;
   max-width: 26%;
-  min-height:26% !important;
+ /* min-height:26% !important;*/
+  width: 318px !important;
+  height: 399px !important;
   margin: 10px;
   background-size: cover;
-  
-}
+  border-radius: 9% !important;
+  background-color: transparent !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
 
+  
+
+}
+.costmcards:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22) !important;
+}
 @media screen and (max-width: 1000px){
   .costmcards {
     flex:1 0 40% !important;
@@ -800,8 +810,8 @@ progress {
 }
 @media screen and (max-width: 700px){
   .costmcards {
-    flex:1 0 80% !important;
-    max-width: 90% !important;
+    flex:1 0 65% !important;
+    max-width: 70% !important;
 
   }
 }

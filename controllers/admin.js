@@ -4,17 +4,19 @@ import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 const signUp= async(req,res)=>{
     console.log('455');
-        const {email ,password , confirmePassword,firstName , lastName} = req.body ;
-            try {
-                console.log('errora111111111111111 ',email ,password , confirmePassword,firstName , lastName);
-                   const old = await admin.findOne({email});
+        const {email ,password , confirmePassword,name} = req.body ;
+        console.log(req.body);
 
+            try {
+                console.log('errora111111111111111 ',email ,password , confirmePassword);
+                   const old = await admin.findOne({email});
+                   console.log('old in: ',old);      
                    if (old) return res.status(400).json({message:'admin alresdy exist !!!'});
 
                   
                    if (password !== confirmePassword) return res.status(400).json({message : 'password and conformation doesnt match'});
                    const hashedPass = await bcrypt.hash(password,12);
-                   const result = await admin.create({email , password:hashedPass , name:firstName+' '+lastName});
+                   const result = await admin.create({email , password:hashedPass , name});
                    const token = jwt.sign({email,id:result._id },'secret_key',{expiresIn:'5h'});
                    res.status(201).json({result , token});
 
@@ -24,17 +26,26 @@ const signUp= async(req,res)=>{
         }
     }
     
-const signIn= async(req,res)=>{
+const signIn= async(req,res,next)=>{
     const {email ,password} = req.body ;
         try {
+              console.log(req.body);
                const old = await admin.findOne({email});
-               if (!old) return res.status(404).json({ message: ' Email doesn\'t existe '});
+               console.log('old in: ',old);
+               if (!old) return res.status(404).redirect('/login', {message: ' Email doesn\'t existe '});
                const passCorrect = await bcrypt.compare(password ,old.password)
-               if ( ! passCorrect )  return res.status(400).json({ message: ' wrong password try again '});
+               if (!passCorrect )  return  res.status(200).redirect('/login', { message: 'wrong password' });
          
-                const token = jwt.sign({email,id:old._id},'secret_key',{expiresIn:'5h'});
-                res.status(200).json({result:old , token});
-         
+              /*  const token = jwt.sign({email,id:old._id},'secret_key',{expiresIn:'5h'});
+                req.user={result:old , token};
+                res.status(200).redirect('/places')*/
+               
+                    req.session.logged = true;
+                    req.session.user = old;
+                    console.log('u are in ');
+                    res.status(200).redirect('./places');
+              
+
     } catch (error) {
         console.log('hhhhhhhhh ', error);
         res.status(500).json(error);

@@ -31,30 +31,45 @@ var getplaces = function getplaces(req, res) {
         case 0:
           _context.prev = 0;
           console.log('get hi ');
-          _context.next = 4;
+
+          if (!req.session.logged) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 5;
           return regeneratorRuntime.awrap(_place["default"].find());
 
-        case 4:
+        case 5:
           Places = _context.sent;
           console.log('fetch done  ');
+          console.log(req.session.logged, '/n', req.session.user, 'dine  ');
           res.status(200).render('index', {
-            places: Places
+            places: Places,
+            user: req.session.user
           });
-          _context.next = 13;
+          _context.next = 12;
           break;
 
-        case 9:
-          _context.prev = 9;
+        case 11:
+          res.status(200).redirect('/');
+
+        case 12:
+          _context.next = 18;
+          break;
+
+        case 14:
+          _context.prev = 14;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           res.status(404).json(_context.t0);
 
-        case 13:
+        case 18:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 14]]);
 };
 
 exports.getplaces = getplaces;
@@ -98,10 +113,12 @@ var creatplace = function creatplace(req, res) {
       switch (_context3.prev = _context3.next) {
         case 0:
           //console.log(req.file);   
-          place = req.body; //   console.log(place.file.filename);
+          place = req.body;
+          console.log('waaaaaaaaaaait');
+          console.log(place.transport); //   console.log(place.file.filename);
           //  console.log(req.file.filename);  
 
-          _context3.prev = 1;
+          _context3.prev = 3;
           newplace = (0, _place["default"])(_objectSpread({}, place, {
             creator: req.adminId,
             createdAt: new Date().toISOString(),
@@ -111,26 +128,26 @@ var creatplace = function creatplace(req, res) {
             }
           })); //    console.log(newplace);
 
-          _context3.next = 5;
+          _context3.next = 7;
           return regeneratorRuntime.awrap(newplace.save());
 
-        case 5:
+        case 7:
           res.status(201).redirect('/places');
-          _context3.next = 12;
+          _context3.next = 14;
           break;
 
-        case 8:
-          _context3.prev = 8;
-          _context3.t0 = _context3["catch"](1);
+        case 10:
+          _context3.prev = 10;
+          _context3.t0 = _context3["catch"](3);
           console.log(_context3.t0);
           res.status(409).json(_context3.t0);
 
-        case 12:
+        case 14:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[1, 8]]);
+  }, null, null, [[3, 10]]);
 };
 
 exports.creatplace = creatplace;
@@ -195,23 +212,22 @@ var deleteplace = function deleteplace(req, res) {
 
         case 6:
           place = _context5.sent;
-          console.log('delete ', place);
           res.redirect('/places');
-          _context5.next = 15;
+          _context5.next = 14;
           break;
 
-        case 11:
-          _context5.prev = 11;
+        case 10:
+          _context5.prev = 10;
           _context5.t0 = _context5["catch"](1);
           console.log(_context5.t0);
           res.status(500).json(_context5.t0);
 
-        case 15:
+        case 14:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[1, 11]]);
+  }, null, null, [[1, 10]]);
 };
 /*
 

@@ -5,6 +5,8 @@ import cors from "cors";
 import dotenv from 'dotenv';
 import placesRoutes from './routes/places.js';
 import adminRoutes from './routes/admin.js';
+import cookieParser from  'cookie-parser';
+import session from 'express-session';
 
 const app = express();
 dotenv.config();
@@ -14,12 +16,18 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cors());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+     maxAge:60000*60*24,
+     }
+}))
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 
-app.get( '/' , (req,res) => {
-  
-  res.render('index',{places:undefined});
-})
+
 app.post( '/' , (req,res) => {
   
   console.log('helllovvvvvv');;
@@ -27,7 +35,7 @@ app.post( '/' , (req,res) => {
 
 
 app.use('/places',placesRoutes);
-app.use('/admin', adminRoutes);
+app.use('/', adminRoutes);
  
 
 const URL = process.env.URL ||'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority'

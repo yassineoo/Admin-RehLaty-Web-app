@@ -59,15 +59,22 @@
   }
     .popup {
       
-      display: none;
-      position: absolute;
-      left: 12%;
+      display   : none;
+      position  : absolute;
+      left: 29%;
       top: 30%;
-      
-      width: 100vw !important; 
-      height: 100 !important;
+
     
-      z-index: 200 !important;
+     z-index: 200 !important;
+    }
+    body::-webkit-scrollbar{
+      z-index: 700;
+    }
+    @media screen and (min-width: 1200px){
+      .popup{
+        left:12% !important;
+      }
+      
     }
   .cardGrp{
     row-gap: 20%;
@@ -122,6 +129,7 @@
     }
     .placeimg{
       background-size: cover;
+      border-radius: 9% !important;
     }
     .mapIcon{
 
@@ -131,6 +139,22 @@
     bottom: 0px;
     /* top: 0; */
     right: 0;
+}
+.card-img-overlay span {
+  margin: 20px;
+    position: absolute;
+    display: flex;
+    bottom: 0px;
+    /* top: 0; */
+    left: 0;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 800;
+font-size: 30px;
+line-height: 24px;
+
+color: #FFFFFF;
+
 }
 .updateIcon{
 
@@ -142,8 +166,14 @@ top: 0px;
 left: 0px;
 }
 svg{
+  box-shadow: 0 1px 3px rgba(172, 172, 172, 0.12), 0 1px 2px rgba(230, 196, 196, 0.24) !important;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
   cursor: pointer; 
 }
+svg:hover {
+  box-shadow: 0 14px 28px rgba(235, 235, 235, 0.25), 0 10px 10px rgba(73, 69, 69, 0.22) !important;
+}
+
 .deleteIcon{
 
 margin: 10px;
@@ -153,6 +183,7 @@ top: 0px;
 /* top: 0; */
 right: 0px;
 }
+
 
     #inputFileLbl{
         display: none;
@@ -178,7 +209,7 @@ label[for='image']:hover {
     </style>
 </head>
 <div  id='overlay'  onclick="hide()"></div>
-<body class="g-sidenav-show  bg-gray-200" style="height:100vh;">
+<body class="g-sidenav-show  " style="height:100vh;">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main" style="background: linear-gradient(186.22deg, #1A248A 0.92%, #1E5AFF 98.95%);
   border-radius: 25px !important">
     <div class="sidenav-header">
@@ -251,12 +282,23 @@ label[for='image']:hover {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/sign-in.html">
+     <% if (user) {%>
+
+         <a class="nav-link text-white " href="./login">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">login</i>
+            </div>
+            <span class="nav-link-text ms-1"> <%=user.email%></span>
+          </a>
+          <%} else {%>
+          <a class="nav-link text-white " href="./login">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">login</i>
             </div>
             <span class="nav-link-text ms-1">Sign In</span>
           </a>
+          <%} %>
+          
         </li>
         <li class="nav-item">
           <a class="nav-link text-white " href="./pages/sign-up.html">
@@ -284,16 +326,24 @@ label[for='image']:hover {
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group input-group-outline">
-              <label class="form-label">Type here...</label>
+              <label class="form-label">cherche une cart...</label>
               <input type="text" class="form-control">
             </div>
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
-              </a>
+              <%if (user) {%>
+                <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                  <i class="fa fa-user me-sm-1"></i>
+                  <span class="d-sm-inline d-none"> <%=user.email%></span>
+                </a>
+               
+                <%}else{%>
+                  <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                    <i class="fa fa-user me-sm-1"></i>
+                    <span class="d-sm-inline d-none">Sign In</span>
+                  </a>
+                  <%}%>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -392,59 +442,7 @@ label[for='image']:hover {
 
   
   <div class="container-fluid py-4 home">
-      <!--  <button  onclick="showaddcard()" class="btn btn-primary " > add a card</button>
-    
-      <div class="card costmcard" style="width: 18rem; display: none ;" id="addCard" >
-      <form action="/places" method="post" enctype="multipart/form-data"  class="form-group">
-       <div class="lblinp" > <label for="name"> name </label> 
-        <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
-        <div class="lblinp" ><label for="type">type</label>
-          <input type="text"  name="type" class="form-control" placeholder="ex : monument ,..."/></div>
-        <div class="lblinp" ><label for="wilaya">wilaya</label>
-        <input type="text"  name="wilaya" class="form-control" placeholder="Oran ,Alger"/></div>
-        <div class="lblinp" > <label for="description" > description </label>
-        <input type="text" name="description"  class="form-control" placeholder="ex : ..."/></div>
-        <div class="lblinp" > <label for="positionX" > positionX</label>
-        <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
-        <div class="lblinp" > <label for="positionY"   > positionY</label>
-        <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-        
-        <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
-        <label for="image"  class="filelbl" > choose an image <i class="bi bi-arrow-down-circle-fill"></i></label></div>
-        <button type="submit" class= 'btn btn-primary subadd majCard' > create the card </button>
-      </form>
-    </div>
-    <div id="upCard"   class='upCard card costmcard'  style="display: none ;">
-    <div class="upcontent">
-      <form action="/places/update" method="post" enctype="multipart/form-data"  class="form-group">
-        <div class="lblinp" > <label for="name"> name </label> 
-         <input type="text" name="name" class="form-control" placeholder="M9am al Chahid"  /></div>
-         <div class="lblinp" ><label for="type">type</label>
-           <input type="text"  name="type" class="form-control" placeholder="ex : monument ,..."/></div>
-         <div class="lblinp" ><label for="wilaya">wilaya</label>
-         <input type="text"  name="wilaya" class="form-control" placeholder="Oran ,Alger"/></div>
-         <div class="lblinp" > <label for="description" > description </label>
-         <input type="text" name="description"  class="form-control" placeholder="ex : ..."/></div>
-         <div class="lblinp" > <label for="positionX" > positionX</label>
-         <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
-         <div class="lblinp" > <label for="positionY"   > positionY</label>
-         <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-         <div class="lblinp" > <label for="positionY"   > tranport</label>
-          <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-          <div class="lblinp" > <label for="positionY"   > acces Time</label>
-            <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-            
-         <div class="lblinp" >  <input type="file" name="image" class="inputfile" class="form-control" />
-    
-         <button type="submit" class= 'btn btn-primary subadd majCard'> update the card </button>
-       </form>
-        </div>
-        <h1>heloooo</h1>
-</div>
-
-  </div>
--->   
-
+ 
     <div class="card-group cardGrp">
         <% if(places) {%>
           <% places.map( place => { %>
@@ -456,8 +454,10 @@ label[for='image']:hover {
                   <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
                   <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                 </svg>
+                <% console.log('hiiiiiiiiiiiiiii') %>
+                <% console.log({id:place._id,des:place.description,type:place.type,name:place.name,image:null,x:place.positionX,y:place.positionY,acces:place.accesTime||'not defiened',wilaya:place.wilaya,trans:place.transport}) %>
                 <svg class="showUpdateCard"  class ='updateIcon' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                 <text hidden ><%=JSON.stringify({id:place._id,des:place.description,type:place.type,name:place.name,image:null}) %></text> <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                 <text hidden ><%=JSON.stringify({id:place._id,des:place.description,type:place.type,name:place.name,image:null,x:place.positionX,y:place.positionY,acces:place.accesTime||'not defiened',wilaya:place.wilaya,trans:place.transport}) %></text> <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
                   <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
                 </svg>
                 <form method="post" action="/places/delete">
@@ -470,6 +470,7 @@ label[for='image']:hover {
                 </Button>
                 
                   </form>
+                  <span><%=place.name%></span>
               </div>
             </div>
             <div class='popup' id=<%=place._id+"popup" %>    >
@@ -528,8 +529,8 @@ label[for='image']:hover {
                 <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
                 <div class="lblinp" > <label for="positionY"   > positionY</label>
                 <input type="number" name="positionY"  step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-                <div class="lblinp" > <label for="tranport"   > tranport</label>
-                  <input type="text" name="tranport"   class="form-control" placeholder="Bus,Taxi"/></div>
+                <div class="lblinp" > <label for="transport"   > transport</label>
+                  <input type="text" name="transport"   class="form-control" placeholder="Bus,Taxi"/></div>
                   <div class="lblinp" > <label for="accesTime"   > acces Time</label>
                     <input type="text" name="accesTime"   class="form-control" placeholder="8h-16h"/></div>
                     <div class="lblinp" >  
@@ -564,8 +565,8 @@ label[for='image']:hover {
                   <input type="number" name="positionX" step="0.0000000001" class="form-control" placeholder="x coordone"/></div>
                   <div class="lblinp" > <label for="positionY"   > positionY</label>
                   <input type="number"  name="positionY"   step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
-                  <div class="lblinp" > <label for="tranport"   > tranport</label>
-                    <input type="text" name="tranport"   class="form-control" placeholder="y corodone"/></div>
+                  <div class="lblinp" > <label for="transport"   > transport</label>
+                    <input type="text" name="transport"   class="form-control" placeholder="y corodone"/></div>
                     <div class="lblinp" > <label for="accesTime"  > acces Time</label>
                       <input type="datetime" name="accesTime"   class="form-control" placeholder="y corodone"/></div>
                       <div class="lblinp" >  
@@ -640,32 +641,7 @@ label[for='image']:hover {
       </div>
       <hr class="horizontal dark my-1">
       <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2 active" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
+      <!-- Navbar Fixed -->
         <div class="mt-3 d-flex">
           <h6 class="mb-0">Navbar Fixed</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
@@ -680,17 +656,7 @@ label[for='image']:hover {
           </div>
         </div>
         <hr class="horizontal dark my-sm-4">
-        <a class="btn btn-outline-dark w-100" href="">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
-        </div>
+  
       </div>
     </div>
   </div>
@@ -729,8 +695,18 @@ label[for='image']:hover {
       console.log(e);
     var popup = document.getElementById(e.target.id+"popup");
     console.log(popup);
+    
       overlay.style.display = 'flex';
       popup.style.display = 'block';
+
+      var rect = document.getElementById(e.target.id).getBoundingClientRect();
+      console.log('************************');
+      console.log(document.getElementById(e.target.id));
+      console.log('************************');
+      console.log(rect);
+      console.log('************************');
+      console.log(window.scrollY);
+      console.log('************************');
       console.log('finisech');
     }
     console.log( button[i].onclick);
@@ -768,10 +744,22 @@ btnup[i].onclick= (e) => {
 
   console.log('card.childNodes[1].childNodes[1]');
   console.log(  card.childNodes[1].childNodes[1].childNodes[1].childNodes);
-  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].attributes[1].nodeValue=x.name;
-  console.log('card.childNodes[1].childNodes[1]');
+  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].setAttribute('value',x.name)
+  console?.log('------------------------------------------------------');
+
+  console.log(card.childNodes[1].childNodes[1].childNodes);
+
+  console?.log('------------------------------------------------------');
+  card.childNodes[1].childNodes[1].childNodes[3]?.childNodes[2]?.setAttribute('value',x?.type)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[5]?.childNodes[2]?.setAttribute('value',x?.wilaya)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[7]?.childNodes[3]?.setAttribute('value',x?.des)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[9]?.childNodes[3]?.setAttribute('value',x?.x)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[11]?.childNodes[3]?.setAttribute('value',x?.y)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[13]?.childNodes[3]?.setAttribute('value',x?.trans)
+  card?.childNodes[1]?.childNodes[1]?.childNodes[15]?.childNodes[3]?.setAttribute('value',x?.acces)
+
   //card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].attributes[1].nodeValue=x.des;
-  console.log(card.childNodes[1].childNodes[1]);
+  console.log(x);
   popUp.style.display='flex' ;
   overlay.style.display = 'flex';
   console.log(popUp);

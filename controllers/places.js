@@ -6,10 +6,15 @@ var __dirname = path.resolve();
 const getplaces = async(req,res)=>{
 try {
      console.log('get hi ');
+     if (req.session.logged) {
      const Places =  await Place.find();
      console.log('fetch done  ');
-     res.status(200).render('index',{places:Places});
-     
+     console.log(req.session.logged ,'/n', req.session.user ,'dine  ');
+     res.status(200).render('index',{places:Places,user:req.session.user});
+     }
+     else {
+        res.status(200).redirect('/');
+     }
      
 } catch (error) {
     console.log(error)
@@ -34,6 +39,8 @@ const creatplace = async (req,res)=>{
 
     //console.log(req.file);   
     const place = req.body;
+    console.log('waaaaaaaaaaait')
+    console.log(place.transport)
  //   console.log(place.file.filename);
   //  console.log(req.file.filename);  
           try {
@@ -75,7 +82,7 @@ const deleteplace = async(req,res)=>{
                             if (!mongoose.Types.ObjectId.isValid(placeId)) return res.status(404).send(`No place with id: ${placeId}`);
 
                             const place = await Place.findByIdAndDelete(placeId);
-                            console.log(  'delete ' , place);
+                            
                             res.redirect( '/places');
                                 
             } catch (error) {

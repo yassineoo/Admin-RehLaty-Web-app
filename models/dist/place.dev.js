@@ -18,6 +18,7 @@ var placeSchema = _mongoose["default"].Schema({
   transport: String,
   wilaya: String,
   creater: String,
+  accesTime: String,
   image: {
     data: Buffer,
     contentType: String

@@ -1,7 +1,15 @@
 import jwt from 'jsonwebtoken';
 
 const auth = (req, res,next) => {
-    /*console.log (req.headers)
+    console.log('hiiiiii');
+    console.log(req.session.logged);
+    if (req.session.logged) {
+         next();
+         console.log('sucess pqssedù');
+    } else {
+         res.render('sign-in', { message: '' });
+    }
+  /*  console.log (req.headers)
     try {
         const token = JSON.parse(req.headers.authorization.split(' ')[1]);
         const  isCostume = token?.length <500;
@@ -20,8 +28,8 @@ const auth = (req, res,next) => {
         next();
     } catch (error) {
         console.error(error)
-    }*/
+    }
     console.log('huuuu');
-    next();
+    next();*/
 }
 export default auth ; 

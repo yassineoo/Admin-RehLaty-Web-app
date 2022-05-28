@@ -9,6 +9,7 @@ const placeSchema = mongoose.Schema({
     transport:String,
     wilaya:String ,
     creater :String, 
+    accesTime:String,
     image :
     {
         data: Buffer,
