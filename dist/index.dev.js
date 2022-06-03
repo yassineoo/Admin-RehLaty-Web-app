@@ -43,12 +43,12 @@ app.use((0, _expressSession["default"])({
 }));
 app.use((0, _cookieParser["default"])());
 app.set('view engine', 'ejs');
-app.post('/', function (req, res) {
-  console.log('helllovvvvvv');
+app.get('/', function (req, res) {
+  console.log('hellloooo to admin api');
   ;
 });
-app.use('/places', _places["default"]);
-app.use('/', _admin["default"]);
+app.use('/places', _places["default"]); //app.use('/', adminRoutes);
+
 var URL = process.env.URL || 'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority';
 var PORT = process.env.PORT || 8880;
 

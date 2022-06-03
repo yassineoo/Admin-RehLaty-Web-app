@@ -28,14 +28,12 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 
-app.post( '/' , (req,res) => {
+app.get( '/' , (req,res) => {
   
-  console.log('helllovvvvvv');;
+  console.log('hellloooo to admin api');;
 })
-
-
 app.use('/places',placesRoutes);
-app.use('/', adminRoutes);
+//app.use('/', adminRoutes);
  
 
 const URL = process.env.URL ||'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority'
