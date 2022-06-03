@@ -24,7 +24,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var _dirname = _path["default"].resolve();
 
 var getplaces = function getplaces(req, res) {
-  var Places;
+  var _Places;
+
   return regeneratorRuntime.async(function getplaces$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -41,17 +42,19 @@ var getplaces = function getplaces(req, res) {
           return regeneratorRuntime.awrap(_place["default"].find());
 
         case 5:
-          Places = _context.sent;
+          _Places = _context.sent;
           console.log('fetch done  ');
           console.log(req.session.logged, '/n', req.session.user, 'dine  ');
           res.status(200).json({
-            Places: Places
+            Places: _Places
           });
           _context.next = 12;
           break;
 
         case 11:
-          res.status(200).redirect('/');
+          res.status(200).json({
+            Places: Places
+          });
 
         case 12:
           _context.next = 18;
@@ -74,7 +77,8 @@ var getplaces = function getplaces(req, res) {
 exports.getplaces = getplaces;
 
 var getComments = function getComments(req, res) {
-  var Places;
+  var _Places2;
+
   return regeneratorRuntime.async(function getComments$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -84,8 +88,8 @@ var getComments = function getComments(req, res) {
           return regeneratorRuntime.awrap(_place["default"].find());
 
         case 3:
-          Places = _context2.sent;
-          res.status(200).json(Places);
+          _Places2 = _context2.sent;
+          res.status(200).json(_Places2);
           _context2.next = 11;
           break;
 

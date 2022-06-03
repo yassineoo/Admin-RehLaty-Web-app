@@ -13,7 +13,7 @@ try {
      res.status(200).json({Places});
      }
      else {
-        res.status(200).redirect('/');
+        res.status(200).json({Places});
      }
      
 } catch (error) {
