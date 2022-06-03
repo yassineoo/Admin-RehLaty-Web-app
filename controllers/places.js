@@ -6,15 +6,12 @@ var __dirname = path.resolve();
 const getplaces = async(req,res)=>{
 try {
      console.log('get hi ');
-     if (req.session.logged) {
+ 
      const Places =  await Place.find();
      console.log('fetch done  ');
      console.log(req.session.logged ,'/n', req.session.user ,'dine  ');
      res.status(200).json({Places});
-     }
-     else {
-        res.status(200).json({Places});
-     }
+  
      
 } catch (error) {
     console.log(error)

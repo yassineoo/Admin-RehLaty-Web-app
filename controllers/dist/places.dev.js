@@ -24,61 +24,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var _dirname = _path["default"].resolve();
 
 var getplaces = function getplaces(req, res) {
-  var _Places;
-
+  var Places;
   return regeneratorRuntime.async(function getplaces$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           console.log('get hi ');
-
-          if (!req.session.logged) {
-            _context.next = 11;
-            break;
-          }
-
-          _context.next = 5;
+          _context.next = 4;
           return regeneratorRuntime.awrap(_place["default"].find());
 
-        case 5:
-          _Places = _context.sent;
+        case 4:
+          Places = _context.sent;
           console.log('fetch done  ');
           console.log(req.session.logged, '/n', req.session.user, 'dine  ');
           res.status(200).json({
-            Places: _Places
-          });
-          _context.next = 12;
-          break;
-
-        case 11:
-          res.status(200).json({
             Places: Places
           });
-
-        case 12:
-          _context.next = 18;
+          _context.next = 14;
           break;
 
-        case 14:
-          _context.prev = 14;
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           res.status(404).json(_context.t0);
 
-        case 18:
+        case 14:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 14]]);
+  }, null, null, [[0, 10]]);
 };
 
 exports.getplaces = getplaces;
 
 var getComments = function getComments(req, res) {
-  var _Places2;
-
+  var Places;
   return regeneratorRuntime.async(function getComments$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -88,8 +71,8 @@ var getComments = function getComments(req, res) {
           return regeneratorRuntime.awrap(_place["default"].find());
 
         case 3:
-          _Places2 = _context2.sent;
-          res.status(200).json(_Places2);
+          Places = _context2.sent;
+          res.status(200).json(Places);
           _context2.next = 11;
           break;
 
