@@ -4,9 +4,9 @@
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Copyright 2022 TechGravity (https://www.creative-tim.com)
 * Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
+* Coded by TechGravity
 
 =========================================================
 
@@ -60,9 +60,9 @@
     .popup {
       
       display   : none;
-      position  : absolute;
-      left: 29%;
-      top: 30%;
+      position  : fixed !important;
+      left: 35% !important;
+      top: 5%;
 
     
      z-index: 200 !important;
@@ -70,7 +70,7 @@
     body::-webkit-scrollbar{
       z-index: 700;
     }
-    @media screen and (min-width: 1200px){
+    @media screen and (max-width: 1200px){
       .popup{
         left:12% !important;
       }
@@ -243,7 +243,7 @@ label[for='image']:hover {
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">ALerts</span>
           </a>
         </li>
         <li class="nav-item">
@@ -259,7 +259,7 @@ label[for='image']:hover {
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
             </div>
-            <span class="nav-link-text ms-1">RTL</span>
+            <span class="nav-link-text ms-1">Notifications</span>
           </a>
         </li>
         <li class="nav-item">
@@ -450,7 +450,8 @@ label[for='image']:hover {
               <img class='card-img-top placeimg' src="data:image/<%=place.image.contentType%>;base64,
               <%=place.image.data?.toString('base64')%>">
               <div class="card-img-overlay">
-                <svg id=<%=place._id %> class ='mapIcon' xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-pin-map" viewBox="0 0 16 16">
+                <svg  class ='mapIcon'  xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-pin-map" viewBox="0 0 16 16">
+                  <text hidden ><%=JSON.stringify({x:place.positionX,y:place.positionY}) %></text>
                   <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
                   <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                 </svg>
@@ -473,40 +474,10 @@ label[for='image']:hover {
                   <span><%=place.name%></span>
               </div>
             </div>
-            <div class='popup' id=<%=place._id+"popup" %>    >
-              <div class="popupcontrols">
-                <span class="popupclose"  localName=<%=place._id+'close'%>   ><text hidden ><%=place._id+'close'%> </text>X</span>
-            </div>
-            <div class="popupcontent">
-              <div class="mapouter mapClass"><div class="gmap_canvas"><iframe width="808" height="607" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${place.positionX},${place.positionY}&t=&z=9&ie=UTF8&iwloc=&output=embed` %>   frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com/divi-discount/">divi discount</a><br><style>.mapouter{position:relative;text-align:right;height:607px;width:808px;}</style><a href="https://www.embedgooglemap.net">get google maps embed code</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:507px;width:808px;}</style></div></div>
-                </div>
-        </div>
+    
  
            
-      <!--
-            <div class="card costmcards" style="width: 18rem;">
-              <img class='placeimg' src="data:image/<%=place.image.contentType%>;base64,
-              <%=place.image.data?.toString('base64')%>">
-              <div class="card-body">
-                <h6 class="card-title"><%= place.name %></h6>
-                <h6 class="card-title"><%= place.type%> in  <%= place.wilaya%></h6>
-                <p class="card-text"><%= place.description %></p>
-                <p class="card-text"><%= place.trnsport%> <%= place.timeacces%></p>
-            
-                <div class="lblinp" >
-           
-
-                  <button    class="showUpdateCard btn btn-primary" name=<%=place._id %>   ><text hidden><%=JSON.stringify({id:place._id, des:place.description,type:place.type,name:place.name,image:null}) %></text>  Update</button> 
-                </div>
-                      
-                      <button   class="buttonMap btn btn-primary" name=<%=place._id %>   > show on map</button> 
-                    </div>
-                    
-                
-            </div>
-
-              --> 
-           
+     
     <% 
           }
            )
@@ -585,6 +556,16 @@ label[for='image']:hover {
             </div>
           </div>
 
+          <div class='popup' id="popupmap"     >
+          <div class="popupcontent">
+            <div class="mapouter mapClass">
+              <div class="gmap_canvas">
+                <iframe width="808" height="607" id="gmap_canvas" src= <%= `https://maps.google.com/maps?q=${37},${88}&t=&z=9&ie=UTF8&iwloc=&output=embed` %> 
+                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    <a href="https://www.whatismyip-address.com/divi-discount/">divi discount</a><br><style>.mapouter{position:relative;text-align:right;height:607px;width:808px;}</style><a href="https://www.embedgooglemap.net">get google maps embed code</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:507px;width:808px;}</style></div></div>
+              </div>
+      </div>
+
 
       <footer class="footer py-4  ">
         <div class="container-fluid">
@@ -602,7 +583,7 @@ label[for='image']:hover {
             <div class="col-lg-6">
               <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">TechGravity</a>
                 </li>
                 <li class="nav-item">
                   <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
@@ -671,50 +652,16 @@ label[for='image']:hover {
     // Initialize Variables
     
     var closePopup = document.getElementsByClassName("popupclose");
-    var button = document.getElementsByClassName("mapIcon");
+   
    var overlay = document.getElementById("overlay");
    var card =document.getElementById('upCard');
-   console.log('hiiii',button);
-    // Close Popup Event
-    for (let i = 0; i < button .length; i++) {
 
-    closePopup[i].onclick = function(e) {
-
-    let s=e.target.firstChild.innerHTML.replace('close','').trim();
-
-    var popup = document.getElementById(s+"popup");
-    console.log(overlay);
-    console.log(popup);
-      overlay.style.display = 'none';
-      popup.style.display = 'none';
-    };
-    // Show Overlay and Popup
-    button[i].onclick = function(e) {
-      console.log('finisech');
-      console.log(overlay);
-      console.log(e);
-    var popup = document.getElementById(e.target.id+"popup");
-    console.log(popup);
-    
-      overlay.style.display = 'flex';
-      popup.style.display = 'block';
-
-      var rect = document.getElementById(e.target.id).getBoundingClientRect();
-      console.log('************************');
-      console.log(document.getElementById(e.target.id));
-      console.log('************************');
-      console.log(rect);
-      console.log('************************');
-      console.log(window.scrollY);
-      console.log('************************');
-      console.log('finisech');
-    }
-    console.log( button[i].onclick);
-  }
   const btnup =document.getElementsByClassName('showUpdateCard') ;
 const popUp = document.getElementById('popupCard');  
-const popAdd = document.getElementById('addCard');  
-  const popup = document.getElementsByClassName(' popup')
+
+
+ const popAdd = document.getElementById('addCard');  
+  const popup = document.getElementsByClassName('popup')
   console.log('poooooooooop,',popup);
   //overly hiding effect
   const hide = () => {
@@ -734,39 +681,6 @@ const popAdd = document.getElementById('addCard');
   // update
 
 
-for (let i = 0; i < button .length; i++) {
-btnup[i].onclick= (e) => {
-  console.log('hohohohohohoh');
-
-  console.log(e);
-  const x = JSON.parse(e.target.childNodes[1].innerHTML);
-  console.log(x);
-
-  console.log('card.childNodes[1].childNodes[1]');
-  console.log(  card.childNodes[1].childNodes[1].childNodes[1].childNodes);
-  card.childNodes[1].childNodes[1].childNodes[1].childNodes[3].setAttribute('value',x.name)
-  console?.log('------------------------------------------------------');
-
-  console.log(card.childNodes[1].childNodes[1].childNodes);
-
-  console?.log('------------------------------------------------------');
-  card.childNodes[1].childNodes[1].childNodes[3]?.childNodes[2]?.setAttribute('value',x?.type)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[5]?.childNodes[2]?.setAttribute('value',x?.wilaya)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[7]?.childNodes[3]?.setAttribute('value',x?.des)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[9]?.childNodes[3]?.setAttribute('value',x?.x)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[11]?.childNodes[3]?.setAttribute('value',x?.y)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[13]?.childNodes[3]?.setAttribute('value',x?.trans)
-  card?.childNodes[1]?.childNodes[1]?.childNodes[15]?.childNodes[3]?.setAttribute('value',x?.acces)
-
-  //card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].attributes[1].nodeValue=x.des;
-  console.log(x);
-  popUp.style.display='flex' ;
-  overlay.style.display = 'flex';
-  console.log(popUp);
-
-
-}
-}
 function showaddcard(){
       console.log('add card');
       var x = document.getElementById("addCard");
@@ -779,6 +693,40 @@ function showaddcard(){
 
   }   
     };
+// -----------------------------------------
+    // map card   
+    const mapCard = document.getElementById('popupmap');  
+   const button = document.getElementsByClassName("mapIcon");
+   console.log(button,' //////////////////////////////////////////');
+    for (let i = 0; i < button .length; i++) {
+button[i].onclick= (e) => {
+  console.log('map  icon click //////////////////////////////////////////');
+
+  console.log(e);
+  const x = JSON.parse(e.target.childNodes[1].innerHTML);
+  console.log(x);
+
+  console.log('card.childNodes[1].childNodes[1]');
+  console.log(  mapCard);
+  console.log(  mapCard?.childNodes);
+  console.log(  mapCard?.childNodes[1]?.childNodes[1]?.childNodes[1]?.childNodes);
+
+  console?.log('------------------------------------------------------');
+mapCard.childNodes[1].childNodes[1].childNodes[1].setAttribute('src',`https://maps.google.com/maps?q=${x.x},${x.y}&t=&z=9&ie=UTF8&iwloc=&output=embed`);
+console.log(mapCard.childNodes[1].childNodes[1].childNodes);
+  console?.log('------------------------------------------------------');
+
+  //card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].attributes[1].nodeValue=x.des;
+  console.log(x);
+ mapCard.style.display='flex' ;
+  overlay.style.display = 'flex';
+  //console.log(popUp);
+
+
+}
+}
+
+
     
   </script>
  <script>

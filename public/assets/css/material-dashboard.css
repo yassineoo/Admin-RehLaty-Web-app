@@ -876,9 +876,10 @@ form {
   margin-bottom: 0;
 }
 .costmcard  input {
-  border-bottom: 1px !important;
+ 
   border-color: black;
   outline: #000;
+  border-width: 0 0 1px 0px;
 }
 button, input[type="submit"]{
 	background: none;
