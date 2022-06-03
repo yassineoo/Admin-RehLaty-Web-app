@@ -44,9 +44,8 @@ var getplaces = function getplaces(req, res) {
           Places = _context.sent;
           console.log('fetch done  ');
           console.log(req.session.logged, '/n', req.session.user, 'dine  ');
-          res.status(200).render('index', {
-            places: Places,
-            user: req.session.user
+          res.status(200).json({
+            Places: Places
           });
           _context.next = 12;
           break;

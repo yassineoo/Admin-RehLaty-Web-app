@@ -10,7 +10,7 @@ try {
      const Places =  await Place.find();
      console.log('fetch done  ');
      console.log(req.session.logged ,'/n', req.session.user ,'dine  ');
-     res.status(200).render('index',{places:Places,user:req.session.user});
+     res.status(200).json({Places});
      }
      else {
         res.status(200).redirect('/');
