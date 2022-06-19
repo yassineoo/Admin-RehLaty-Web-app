@@ -38,9 +38,14 @@ var getplaces = function getplaces(req, res) {
           Places = _context.sent;
           console.log('fetch done  ');
           console.log(req.session.logged, '/n', req.session.user, 'dine  ');
-          res.status(200).json({
-            Places: Places
-          });
+
+          if (req.session.logged) {
+            res.status(200).render('indexOr', {
+              places: Places,
+              user: req.session.user
+            });
+          } else res.redirect('/');
+
           _context.next = 14;
           break;
 
@@ -139,14 +144,13 @@ var creatplace = function creatplace(req, res) {
 exports.creatplace = creatplace;
 
 var updateplace = function updateplace(req, res) {
-  var id, _req$body, title, message, creator, selectedFile, tags, newOne;
-
+  var id, newOne;
   return regeneratorRuntime.async(function updateplace$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           id = req.body.id;
-          _req$body = req.body, title = _req$body.title, message = _req$body.message, creator = _req$body.creator, selectedFile = _req$body.selectedFile, tags = _req$body.tags;
+          console.log('iiiiiiiddddd', id);
 
           if (_mongoose["default"].Types.ObjectId.isValid(id)) {
             _context4.next = 4;
@@ -164,7 +168,7 @@ var updateplace = function updateplace(req, res) {
         case 6:
           newOne = _context4.sent;
           // console.log('update lllll' , id,'---/n', title, ' /n ', message,' /n ',  creator,'    ','     ' , tags);
-          next();
+          res.redirect('/places');
 
         case 8:
         case "end":
@@ -183,37 +187,39 @@ var deleteplace = function deleteplace(req, res) {
       switch (_context5.prev = _context5.next) {
         case 0:
           placeId = req.body.placeId;
-          _context5.prev = 1;
+          console.log(req.body);
+          console.log(placeId);
+          _context5.prev = 3;
 
           if (_mongoose["default"].Types.ObjectId.isValid(placeId)) {
-            _context5.next = 4;
+            _context5.next = 6;
             break;
           }
 
           return _context5.abrupt("return", res.status(404).send("No place with id: ".concat(placeId)));
 
-        case 4:
-          _context5.next = 6;
+        case 6:
+          _context5.next = 8;
           return regeneratorRuntime.awrap(_place["default"].findByIdAndDelete(placeId));
 
-        case 6:
+        case 8:
           place = _context5.sent;
           res.redirect('/places');
-          _context5.next = 14;
+          _context5.next = 16;
           break;
 
-        case 10:
-          _context5.prev = 10;
-          _context5.t0 = _context5["catch"](1);
+        case 12:
+          _context5.prev = 12;
+          _context5.t0 = _context5["catch"](3);
           console.log(_context5.t0);
           res.status(500).json(_context5.t0);
 
-        case 14:
+        case 16:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[1, 10]]);
+  }, null, null, [[3, 12]]);
 };
 /*
 

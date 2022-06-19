@@ -18,6 +18,8 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 
 var _expressSession = _interopRequireDefault(require("express-session"));
 
+var _places2 = require("./controllers/places.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -43,12 +45,9 @@ app.use((0, _expressSession["default"])({
 }));
 app.use((0, _cookieParser["default"])());
 app.set('view engine', 'ejs');
-app.get('/', function (req, res) {
-  console.log('hellloooo to admin api');
-  ;
-});
-app.use('/places', _places["default"]); //app.use('/', adminRoutes);
-
+app.use('/places', _places["default"]);
+app.post("/up", _places2.updateplace);
+app.use('/', _admin["default"]);
 var URL = process.env.URL || 'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority';
 var PORT = process.env.PORT || 8880;
 

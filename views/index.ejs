@@ -504,6 +504,9 @@ label[for='image']:hover {
                   <input type="text" name="transport"   class="form-control" placeholder="Bus,Taxi"/></div>
                   <div class="lblinp" > <label for="accesTime"   > acces Time</label>
                     <input type="text" name="accesTime"   class="form-control" placeholder="8h-16h"/></div>
+                    
+                     
+
                     <div class="lblinp" >  
                       <label for="imageUp"    > Select image <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
                         <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -511,7 +514,7 @@ label[for='image']:hover {
                       </svg></label>
                       <input type="file" name="image" id='imageUp' class="inputfile" class="form-control" />
                     </div>
-            
+                
                 <button type="submit" class= 'btn  subadd majCard' style="background-color:#1A248A ;"> Update the card </button>
               </form>
                 </div>
@@ -537,9 +540,9 @@ label[for='image']:hover {
                   <div class="lblinp" > <label for="positionY"   > positionY</label>
                   <input type="number"  name="positionY"   step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
                   <div class="lblinp" > <label for="transport"   > transport</label>
-                    <input type="text" name="transport"   class="form-control" placeholder="y corodone"/></div>
+                    <input type="text" name="transport"   class="form-control" placeholder="Bus,Taxi"/></div>
                     <div class="lblinp" > <label for="accesTime"  > acces Time</label>
-                      <input type="datetime" name="accesTime"   class="form-control" placeholder="y corodone"/></div>
+                      <input type="datetime" name="accesTime"   class="form-control" placeholder="8h-16h"/></div>
                       <div class="lblinp" >  
                         <label for="image"    > Select image <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
                           <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -680,7 +683,7 @@ const popUp = document.getElementById('popupCard');
 
   // update
 
-
+// add
 function showaddcard(){
       console.log('add card');
       var x = document.getElementById("addCard");
@@ -711,10 +714,10 @@ button[i].onclick= (e) => {
   console.log(  mapCard?.childNodes);
   console.log(  mapCard?.childNodes[1]?.childNodes[1]?.childNodes[1]?.childNodes);
 
-  console?.log('------------------------------------------------------');
+console?.log('------------------------------------------------------');
 mapCard.childNodes[1].childNodes[1].childNodes[1].setAttribute('src',`https://maps.google.com/maps?q=${x.x},${x.y}&t=&z=9&ie=UTF8&iwloc=&output=embed`);
 console.log(mapCard.childNodes[1].childNodes[1].childNodes);
-  console?.log('------------------------------------------------------');
+console?.log('------------------------------------------------------');
 
   //card.childNodes[1].childNodes[1].childNodes[3].childNodes[3].attributes[1].nodeValue=x.des;
   console.log(x);

@@ -10,7 +10,10 @@ try {
      const Places =  await Place.find();
      console.log('fetch done  ');
      console.log(req.session.logged ,'/n', req.session.user ,'dine  ');
-     res.status(200).json({Places});
+     if(req.session.logged){
+        res.status(200).render('indexOr',{places:Places,user:req.session.user});
+     }
+   else res.redirect('/') ;
   
      
 } catch (error) {
@@ -60,20 +63,22 @@ const creatplace = async (req,res)=>{
 
 const updateplace = async(req,res)=>{
     const { id } = req.body;
-    const { title, message, creator, selectedFile, tags } = req.body;
-    
+
+    console.log('iiiiiiiddddd',id);
+
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No place with id: ${id}`);
 
    // const updatedplace = { creator, title, message, tags, selectedFile, _id: id };
 
    const newOne = await Place.findByIdAndUpdate(id, req.body, { new: true });
    // console.log('update lllll' , id,'---/n', title, ' /n ', message,' /n ',  creator,'    ','     ' , tags);
-    next();
+   res.redirect( '/places');
 }
 
 const deleteplace = async(req,res)=>{
     const { placeId } = req.body;
-    
+    console.log(req.body);
+    console.log(placeId);   
                 try {
                 //            if (!req.adminId) res.status (400).json({message:'please sign in first'});
                             if (!mongoose.Types.ObjectId.isValid(placeId)) return res.status(404).send(`No place with id: ${placeId}`);

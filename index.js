@@ -7,7 +7,7 @@ import placesRoutes from './routes/places.js';
 import adminRoutes from './routes/admin.js';
 import cookieParser from  'cookie-parser';
 import session from 'express-session';
-
+import { updateplace } from "./controllers/places.js";
 const app = express();
 dotenv.config();
 app.use(express.static('public'))
@@ -28,12 +28,10 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 
-app.get( '/' , (req,res) => {
-  
-  console.log('hellloooo to admin api');;
-})
+
 app.use('/places',placesRoutes);
-//app.use('/', adminRoutes);
+app.post("/up",updateplace );
+app.use('/', adminRoutes);
  
 
 const URL = process.env.URL ||'mongodb+srv://user2:369852147@cluster0.yr2lt.mongodb.net/gotravel?retryWrites=true&w=majority'
