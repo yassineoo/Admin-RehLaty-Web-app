@@ -62,15 +62,17 @@ const creatplace = async (req,res)=>{
 
 
 const updateplace = async(req,res)=>{
-    const { id } = req.body;
+    const { id } = req.params;
 
     console.log('iiiiiiiddddd',id);
+    console.log('iiiiiiiddddd',req.body);
+
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No place with id: ${id}`);
 
    // const updatedplace = { creator, title, message, tags, selectedFile, _id: id };
 
-   const newOne = await Place.findByIdAndUpdate(id, req.body, { new: true });
+   const newOne = await Place.findByIdAndUpdate(id,{ ...req.body, name:'Santa cruz'},{ new: true });
    // console.log('update lllll' , id,'---/n', title, ' /n ', message,' /n ',  creator,'    ','     ' , tags);
    res.redirect( '/places');
 }

@@ -25,7 +25,7 @@ var storage = multer.diskStorage({
 
 route.get("/", getplaces);
 route.post("/",upload.single('image'), creatplace);
-route.post("/update",updateplace );
+route.post("/update/:id",updateplace );
 route.post('/delete',deleteplace);
 //route.patch('/like/:id',auth,likeplace);
 export default route;

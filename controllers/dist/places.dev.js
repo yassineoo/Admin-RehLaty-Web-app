@@ -149,28 +149,31 @@ var updateplace = function updateplace(req, res) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          id = req.body.id;
+          id = req.params.id;
           console.log('iiiiiiiddddd', id);
+          console.log('iiiiiiiddddd', req.body);
 
           if (_mongoose["default"].Types.ObjectId.isValid(id)) {
-            _context4.next = 4;
+            _context4.next = 5;
             break;
           }
 
           return _context4.abrupt("return", res.status(404).send("No place with id: ".concat(id)));
 
-        case 4:
-          _context4.next = 6;
-          return regeneratorRuntime.awrap(_place["default"].findByIdAndUpdate(id, req.body, {
+        case 5:
+          _context4.next = 7;
+          return regeneratorRuntime.awrap(_place["default"].findByIdAndUpdate(id, _objectSpread({}, req.body, {
+            name: 'Santa cruz'
+          }), {
             "new": true
           }));
 
-        case 6:
+        case 7:
           newOne = _context4.sent;
           // console.log('update lllll' , id,'---/n', title, ' /n ', message,' /n ',  creator,'    ','     ' , tags);
           res.redirect('/places');
 
-        case 8:
+        case 9:
         case "end":
           return _context4.stop();
       }

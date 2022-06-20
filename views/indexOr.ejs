@@ -504,7 +504,7 @@ label[for='image']:hover {
         <div class="popupcontent">
           <div id="upCard"   class='upCard card costmcard'  >
             <div class="upcontent">
-              <form action="places/update" method="post" enctype="multipart/form-data"   class="form-group">
+              <form action="places/update/" method="post" enctype="multipart/form-data"   class="form-group">
               
       
                 <div class="lblinp" > <label for="name"> NOM </label> 
@@ -523,11 +523,11 @@ label[for='image']:hover {
                   <input type="text" name="transport"   class="form-control" placeholder="Bus,Taxi"/></div>
                   <div class="lblinp" > <label for="accesTime"   > acces Time</label>
                     <input type="text" name="accesTime"   class="form-control" placeholder="8h-16h"/></div>
-                 <input hidden name="id" />
+                 <input hidden name="ids" />
                    
                
             
-                <button type="submit" class= 'btn  subadd majCard' style="background-color:#1A248A ;"> Update the card </button>
+                <button type="submit" class= 'btn  subadd majCard' style="background-color:#1A248A ; color: white !important;"> Mettre à jour la Carte </button>
               </form>
                 </div>
         </div>
@@ -734,6 +734,9 @@ btnup[i].onclick= (e) => {
   card?.childNodes[1]?.childNodes[1]?.childNodes[11]?.childNodes[3]?.setAttribute('value',x?.y)
   card?.childNodes[1]?.childNodes[1]?.childNodes[13]?.childNodes[3]?.setAttribute('value',x?.trans)
   card?.childNodes[1]?.childNodes[1]?.childNodes[15]?.childNodes[3]?.setAttribute('value',x?.acces)
+  card?.childNodes[1]?.childNodes[1]?.setAttribute('action',` places/update/${x?.id}`)
+
+  
   card?.childNodes[1]?.childNodes[1]?.childNodes[17]?.setAttribute('value',x?.id);
   console.log('wt u looking for ');
 console.log(card?.childNodes[1]?.childNodes[1]?.childNodes[17]);
