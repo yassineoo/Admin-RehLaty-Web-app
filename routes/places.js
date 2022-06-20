@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
     filename: (req, file, cb) => {
       console.log('jjjjjjjj');
       console.log(req.body.name);
-        cb(null, file?.fieldname + '-' + req.body.name + path.extname(file.originalname))
+        cb(null, file?.fieldname + '-' + req.body.name )
     }
   });
   const limits = {
