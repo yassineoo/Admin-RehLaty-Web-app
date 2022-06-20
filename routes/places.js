@@ -1,6 +1,5 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
 import { getplaces ,getComments, creatplace,updateplace ,deleteplace } from "../controllers/places.js";
 import  auth from '../middelware/auth.js';
 const route = express.Router();
@@ -12,9 +11,7 @@ var storage = multer.diskStorage({
         cb(null, 'uploads')
     },
     filename: (req, file, cb) => {
-      console.log('jjjjjjjj');
-      console.log(req.body.name);
-        cb(null, file?.fieldname + '-' + req.body.name )
+        cb(null, file?.fieldname + '-' + Date.now())
     }
   });
   const limits = {
