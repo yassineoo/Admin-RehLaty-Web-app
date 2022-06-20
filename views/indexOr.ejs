@@ -1,17 +1,4 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v=3.0.2
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2022 TechGravity (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by TechGravity
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -209,7 +196,7 @@ label[for='image']:hover {
     </style>
 </head>
 <div  id='overlay'  onclick="hide()"></div>
-<body class="g-sidenav-show-grey  " style="height:100vh;">
+<body class="g-sidenav-show  " style="height:100vh;">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main" style="background: linear-gradient(186.22deg, #1A248A 0.92%, #1E5AFF 98.95%);
   border-radius: 25px !important">
     <div class="sidenav-header">
@@ -251,7 +238,7 @@ label[for='image']:hover {
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">view_in_ar</i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1"> statistique</span>
           </a>
         </li>
         <li class="nav-item">
@@ -259,7 +246,7 @@ label[for='image']:hover {
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
             </div>
-            <span class="nav-link-text ms-1">Notifications</span>
+            <span class="nav-link-text ms-1">sign-out</span>
           </a>
         </li>
         <li class="nav-item">
@@ -517,7 +504,7 @@ label[for='image']:hover {
         <div class="popupcontent">
           <div id="upCard"   class='upCard card costmcard'  >
             <div class="upcontent">
-              <form action="places/update" method="post"   class="form-group">
+              <form action="places/update" method="post" enctype="multipart/form-data"   class="form-group">
               
       
                 <div class="lblinp" > <label for="name"> NOM </label> 
@@ -565,9 +552,9 @@ label[for='image']:hover {
                   <div class="lblinp" > <label for="positionY"   > positionY</label>
                   <input type="number"  name="positionY"   step="0.0000000001" class="form-control" placeholder="y corodone"/></div>
                   <div class="lblinp" > <label for="transport"   > transport</label>
-                    <input type="text" name="transport"   class="form-control" placeholder="y corodone"/></div>
+                    <input type="text" name="transport"   class="form-control" placeholder="Bus,Taxi"/></div>
                     <div class="lblinp" > <label for="accesTime"  > acces Time</label>
-                      <input type="datetime" name="accesTime"   class="form-control" placeholder="y corodone"/></div>
+                      <input type="datetime" name="accesTime"   class="form-control" placeholder="8h-16h"/></div>
                       <div class="lblinp" >  
                         <label for="image"    > Select image <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
                           <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -576,7 +563,7 @@ label[for='image']:hover {
                         <input type="file" name="image" id='image' class="inputfile" class="form-control" />
                       </div>
               
-                  <button type="submit" class= 'btn btn-primary subadd majCard'> Add the card </button>
+                  <button type="submit" class= 'btn btn-primary subadd majCard'> Ajouter la Cart </button>
                 </form>
                   </div>
           </div>
@@ -784,253 +771,7 @@ function showaddcard(){
             imageName.innerText = inputImage.name;
         })*/
     </script>
- <script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
 
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["M", "T", "W", "T", "F", "S", "S"],
-        datasets: [{
-          label: "Sales",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "rgba(255, 255, 255, .8)",
-          data: [50, 20, 10, 22, 50, 10, 40],
-          maxBarThickness: 6
-        }, ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              suggestedMin: 0,
-              suggestedMax: 500,
-              beginAtZero: true,
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-              color: "#fff"
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-
-
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    new Chart(ctx2, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0,
-          borderWidth: 0,
-          pointRadius: 5,
-          pointBackgroundColor: "rgba(255, 255, 255, .8)",
-          pointBorderColor: "transparent",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderWidth: 4,
-          backgroundColor: "transparent",
-          fill: true,
-          data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-
-    var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-    new Chart(ctx3, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0,
-          borderWidth: 0,
-          pointRadius: 5,
-          pointBackgroundColor: "rgba(255, 255, 255, .8)",
-          pointBorderColor: "transparent",
-          borderColor: "rgba(255, 255, 255, .8)",
-          borderWidth: 4,
-          backgroundColor: "transparent",
-          fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#f8f9fa',
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-  </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

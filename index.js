@@ -28,7 +28,6 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 
-
 app.use('/places',placesRoutes);
 app.post("/up",updateplace );
 app.use('/', adminRoutes);
